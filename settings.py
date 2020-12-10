@@ -6,3 +6,4 @@ database = dict(
         database="libelium_project"
     )
 )
+broker="mqtt.fluux.io"
