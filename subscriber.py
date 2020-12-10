@@ -16,13 +16,16 @@ def on_message(client, userdata, message):
     print("received message =", str(message.payload.decode("utf-8")))
 
     ## DB excute
-    mycursor = mydb.cursor()
-    now = datetime.datetime.utcnow()
-    logger.info('On message')
-    sql = "INSERT INTO data_collections (waspmote_id, sensor_key, value, created_at, updated_at) VALUES (%s, %s, %s, %s, %s)"
-    val = (1, "temperature", 30, now, now)
-    mycursor.execute(sql, val)
-    mydb.commit()
+    try:
+        mycursor = mydb.cursor()
+        now = datetime.datetime.utcnow()
+        logger.info('On message')
+        sql = "INSERT INTO data_collections (waspmote_id, sensor_key, value, created_at, updated_at) VALUES (%s, %s, %s, %s, %s)"
+        val = (1, "temperature", 30, now, now)
+        mycursor.execute(sql, val)
+        mydb.commit()
+    except:
+        logger.error('Error while add value to MySQL')
 
 if __name__ == "__main__":
     logger.info('Start app...')
