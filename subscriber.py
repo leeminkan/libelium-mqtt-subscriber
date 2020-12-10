@@ -13,6 +13,7 @@ logger = logging.getLogger()  # get the root logger
 def on_connect(mqttc, obj, flags, rc):
     print("rc: "+ str(rc))
     logger.info('On connect')
+    logger.info("rc: %s", str(rc))
 
 def on_message(client, userdata, message):
     messageString = str(message.payload.decode("utf-8"))
