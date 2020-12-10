@@ -32,15 +32,16 @@ def on_message(client, userdata, message):
 
 if __name__ == "__main__":
     logger.info('Start app...')
-    broker=settings.broker
+    mqtt=settings.mqtt
     client= paho.Client("subscriber") 
+    client.username_pw_set(mqtt["username"], password=mqtt["password"])
     #create client object client1.on_publish = on_publish 
     ######Bind function to callback
     client.on_connect = on_connect
     client.on_message=on_message
     #####
-    print("connecting to broker ",broker)
-    client.connect(broker) #connect
+    print("connecting to broker ", mqtt["address"])
+    client.connect(mqtt["address"], mqtt["port"]) #connect
     print("subscribing ")
     client.subscribe("house/bulb1") #subscribe
     # client.disconnect() #disconnect
