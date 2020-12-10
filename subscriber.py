@@ -18,6 +18,8 @@ def on_message(client, userdata, message):
 
     ## DB excute
     try:
+        mysqlSettings = settings.database['mysql']
+        mydb = connect_to_database(**mysqlSettings)
         mycursor = mydb.cursor()
         now = datetime.datetime.utcnow()
         logger.info('On message')
@@ -25,14 +27,12 @@ def on_message(client, userdata, message):
         val = (1, "temperature", 30, now, now)
         mycursor.execute(sql, val)
         mydb.commit()
-    except:
-        logger.error('Error while add value to MySQL')
+    except Exception as e:
+        logger.error('Error while add value to MySQL %s', e)
 
 if __name__ == "__main__":
     logger.info('Start app...')
     broker=settings.broker
-    mysqlSettings = settings.database['mysql']
-    mydb = connect_to_database(**mysqlSettings)
     client= paho.Client("subscriber") 
     #create client object client1.on_publish = on_publish 
     ######Bind function to callback
