@@ -43,7 +43,7 @@ if __name__ == "__main__":
     print("connecting to broker ", mqtt["address"])
     client.connect(mqtt["address"], mqtt["port"]) #connect
     print("subscribing ")
-    client.subscribe("house/bulb1") #subscribe
+    client.subscribe(mqtt["topic"]) #subscribe
     # client.disconnect() #disconnect
     # client.loop_stop() #stop loop
     client.loop_forever()
