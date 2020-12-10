@@ -11,6 +11,7 @@ logger = logging.getLogger()  # get the root logger
 #define callback
 def on_connect(mqttc, obj, flags, rc):
     print("rc: "+ str(rc))
+    logger.info('On connect')
 
 def on_message(client, userdata, message):
     print("received message =", str(message.payload.decode("utf-8")))
