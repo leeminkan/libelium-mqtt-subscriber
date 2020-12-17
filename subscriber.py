@@ -38,7 +38,7 @@ def on_message(client, userdata, message):
 if __name__ == "__main__":
     logger.info('Start app...')
     mqtt=settings.mqtt
-    client= paho.Client("subscriber") 
+    client= paho.Client(mqtt["username"])
     client.username_pw_set(mqtt["username"], password=mqtt["password"])
     #create client object client1.on_publish = on_publish 
     ######Bind function to callback
