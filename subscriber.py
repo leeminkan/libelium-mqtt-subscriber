@@ -28,8 +28,10 @@ def on_message(client, userdata, message):
 
         data = json.loads(messageString)
         time = datetime.datetime.fromtimestamp(data["created_at"])
-        sql = "INSERT INTO data_collections (waspmote_id, sensor_key, value, created_at, updated_at) VALUES (%s, %s, %s, %s, %s)"
-        val = (data["waspmote_id"], data["sensor_key"], data["value"], time, time)
+        sql = "INSERT INTO data_collections (waspmote_id, sensor_key, value, time_get_sample, algorithm_parameter_id, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        time_get_sample = data["time_get_sample"] if ('time_get_sample' in data) else 0
+        algorithm_parameter_id = data["algorithm_parameter_id"] if ('algorithm_parameter_id' in data) else None
+        val = (data["waspmote_id"], data["sensor_key"], data["value"], time_get_sample, algorithm_parameter_id, time, time)
         mycursor.execute(sql, val)
         mydb.commit()
     except Exception as e:
