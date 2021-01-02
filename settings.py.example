@@ -1,0 +1,16 @@
+database = dict(
+    mysql = dict(
+        host="localhost",
+        user="root",
+        password="",
+        database="libelium_project"
+    )
+)
+mqtt = dict(
+        address="broker.emqx.io",
+        port=1883,
+        username="libelium-subscriber2",
+        password="subscriber",
+        topic="libelium-data",
+        error_rate_topic="libelium-error-rates"
+    )
