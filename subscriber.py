@@ -28,7 +28,7 @@ def on_message(client, userdata, message):
         mycursor = mydb.cursor()
         data = json.loads(messageString)
 
-        if message.topic == mqtt["topic"]:
+        if message.topic == mqtt["data_topic"]:
             time = datetime.datetime.fromtimestamp(data["created_at"])
             sql = "INSERT INTO data_collections (waspmote_id, sensor_key, value, time_get_sample, algorithm_parameter_id, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s)"
             time_get_sample = data["time_get_sample"] if ('time_get_sample' in data) else 0
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     print("connecting to broker ", mqtt["address"])
     client.connect(mqtt["address"], mqtt["port"]) #connect
     print("subscribing ")
-    data_topic = mqtt["topic"]
+    data_topic = mqtt["data_topic"]
     error_rate_topic = mqtt["error_rate_topic"] if ('error_rate_topic' in mqtt) else "libelium-error-rates"
     client.subscribe([(data_topic,0), (error_rate_topic,0)]) #subscribe
     # client.disconnect() #disconnect
